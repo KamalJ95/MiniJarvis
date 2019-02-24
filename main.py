@@ -1,5 +1,15 @@
 import pyaudio
 import wave
+import speech_recognition as sr
+import subprocess
+from commands import Commander
+
+
+running = True
+
+
+def say(text):
+    subprocess.call('say ' + text, shell=True)
 
 
 """Play MP3"""
@@ -29,6 +39,43 @@ def play_audio(filename):
     pa.terminate()
 
 
-play_audio("PEP/audio/quite-impressed.wav")
+r = sr.Recognizer()
+cmd = Commander()
+
+
+def initSpeech():
+    print("Listening...")
+    play_audio("PEP/audio/unconvinced.wav")
+
+    with sr.Microphone() as source:
+        print("Say something:")
+        audio = r.listen(source)
+
+    play_audio("PEP/audio/quite-impressed(1).wav")
+
+    command = ""
+
+    try:
+        command = r.recognize_google(audio)
+    except:
+        print("Sorry I couldn't catch that.")
+
+    print("You said:")
+    print(command)
+    if command == "quit":
+        running = False
+
+    cmd.discover(command)
+
+
+while running:
+    initSpeech()
+
+
+
+
+
+
+
 
 
