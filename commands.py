@@ -1,5 +1,6 @@
 import subprocess
 import os
+import random
 
 
 class Commander:
@@ -13,11 +14,16 @@ class Commander:
 
     def discover(self, text):
         if "what" in text and "your name" in text:
-                self.respond('its ya boy kevin sam')
+                self.respond('My name is Jarvis')
         if "my" in text:
             self.respond('You havent told me your name yet')
         if "life" in text:
             self.respond('42')
+        if "random" in text:
+            target = random.randrange(0,6)
+            self.respond(self.confirm[target])
+
+
 
 
 
