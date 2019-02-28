@@ -63,6 +63,7 @@ def initSpeech():
     print("You said:")
     print(command)
     if command == "quit":
+        global running
         running = False
 
     cmd.discover(command)
